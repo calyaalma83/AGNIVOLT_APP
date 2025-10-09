@@ -1,0 +1,7 @@
+{
+  "name": "AGNIVOLT_APP",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
