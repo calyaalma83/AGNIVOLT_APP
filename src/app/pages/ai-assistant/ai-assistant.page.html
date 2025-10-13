@@ -1,0 +1,44 @@
+<ion-header translucent>
+  <ion-toolbar color="primary">
+    <ion-title>🤖 AI Assistant - Agnivolt</ion-title>
+    <ion-buttons slot="end">
+      <!-- Tombol X untuk kembali ke dashboard -->
+      <ion-button (click)="closeChat()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="ai-chat">
+  <div class="chat-messages">
+    <!-- Loop pesan -->
+    <div
+      *ngFor="let msg of messages"
+      class="message-row"
+      [ngClass]="msg.sender"
+    >
+      <div class="message-avatar">{{ msg.avatar }}</div>
+      <div class="message-bubble" [innerHTML]="msg.text"></div>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="isLoading" class="message-row ai">
+      <div class="message-avatar">🤖</div>
+      <div class="message-bubble">Sedang berpikir...</div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer class="chat-footer">
+  <div class="chat-input">
+    <ion-input
+      [(ngModel)]="chatInput"
+      placeholder="Tanyakan sesuatu..."
+      (keyup.enter)="sendMessage()"
+    ></ion-input>
+    <ion-button (click)="sendMessage()" shape="round" color="primary">
+      <ion-icon name="send"></ion-icon>
+    </ion-button>
+  </div>
+</ion-footer>

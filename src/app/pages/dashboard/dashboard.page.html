@@ -1,0 +1,90 @@
+<ion-content class="ion-padding dashboard-container" scrollEvents="true">
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-top">
+        <img src="assets/logo.png" alt="Agnivolt Logo" class="logo">
+        <h1>
+          Sistem Monitoring Pembangkit Listrik Tenaga Mikrohidro Berbasis IoT
+          <span class="status-indicator"></span>
+        </h1>
+      </div>
+    </div>
+
+    <!-- Status Cards -->
+    <div class="status-bar">
+      <div class="status-card voltage">
+        <div class="status-info">
+          <h3>Tegangan</h3>
+          <div class="status-value" id="voltage">0</div>
+          <div class="status-unit">Volt</div>
+        </div>
+      </div>
+      <div class="status-card current">
+        <div class="status-info">
+          <h3>Arus Listrik</h3>
+          <div class="status-value" id="current">0</div>
+          <div class="status-unit">Ampere</div>
+        </div>
+      </div>
+      <div class="status-card power">
+        <div class="status-info">
+          <h3>Daya</h3>
+          <div class="status-value" id="power">0</div>
+          <div class="status-unit">Watt</div>
+        </div>
+      </div>
+      <div class="status-card rpm">
+        <div class="status-info">
+          <h3>Kecepatan Turbin</h3>
+          <div class="status-value" id="rpm">0</div>
+          <div class="status-unit">RPM</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart + Summary -->
+    <div class="grid">
+      <div class="chart-container">
+        <div class="chart-tabs">
+          <button class="tab-button active" (click)="switchChart('realtime', $event)">Real-time</button>
+          <button class="tab-button" (click)="switchChart('daily', $event)">Harian</button>
+          <button class="tab-button" (click)="switchChart('weekly', $event)">Mingguan</button>
+        </div>
+        <h2>{{ chartTitle }}</h2>
+        <canvas id="realtimeChart"></canvas>
+      </div>
+
+      <div class="summary-cards">
+        <div class="summary-card">
+          <h3>Durasi Penggunaan Hari Ini</h3>
+          <div class="summary-value" id="duration">0</div>
+          <div class="status-unit">Jam</div>
+        </div>
+        <div class="summary-card">
+          <h3>Total Daya Dihasilkan</h3>
+          <div class="summary-value" id="totalPower">0</div>
+          <div class="status-unit">kWh</div>
+        </div>
+        <div class="summary-card">
+          <h3>Efisiensi</h3>
+          <div class="summary-value" id="efficiency">0</div>
+          <div class="status-unit">%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Avatar + FAB -->
+    <div class="user-avatar" id="miniAvatar" (click)="openProfile()">{{ userInitial }}</div>
+
+    <ion-fab vertical="bottom" horizontal="end">
+      <ion-fab-button color="primary" (click)="openAiAssistant()">
+        <ion-icon name="chatbubbles-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+
+  <footer class="footer">
+    <p>© 2025 Agnivolt • Sistem Monitoring PLTMH Berbasis IoT</p>
+  </footer>
+</ion-content>

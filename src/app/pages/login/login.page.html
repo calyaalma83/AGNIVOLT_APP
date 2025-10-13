@@ -1,0 +1,47 @@
+<ion-content fullscreen>
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="logo">⚡</div>
+      <h1>Login</h1>
+      <p class="subtitle">
+        Sistem Monitoring Pembangkit Listrik Tenaga Mikrohidro Berbasis IoT
+      </p>
+
+      <form (submit)="onLogin($event)">
+        <ion-input
+          type="email"
+          placeholder="Email"
+          [(ngModel)]="email"
+          name="email"
+          required
+        ></ion-input>
+
+        <div class="password-wrapper">
+          <ion-input
+            [type]="showPassword ? 'text' : 'password'"
+            placeholder="Password"
+            [(ngModel)]="password"
+            name="password"
+            required
+          ></ion-input>
+          <ion-icon
+            name="eye"
+            (click)="togglePassword()"
+            class="toggle-password"
+          ></ion-icon>
+        </div>
+
+        <ion-button expand="block" type="submit">Login</ion-button>
+      </form>
+
+      <ion-button expand="block" color="light" (click)="loginWithGoogle()">
+        <ion-icon slot="start" name="logo-google"></ion-icon>
+        Login dengan Google
+      </ion-button>
+
+      <p class="switch-auth">
+        Belum punya akun? <a routerLink="/register">Daftar di sini</a>
+      </p>
+    </div>
+  </div>
+</ion-content>

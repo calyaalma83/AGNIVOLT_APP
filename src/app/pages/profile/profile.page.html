@@ -1,0 +1,27 @@
+<ion-content class="ion-padding profile-container">
+  <div class="header">
+    <h1>👤 Profil Pengguna</h1>
+  </div>
+
+  <div class="profile-card">
+    <div
+      class="avatar-large"
+      [style.background]="avatarColor"
+    >
+      {{ userInitial }}
+    </div>
+
+    <h2>{{ userName }}</h2>
+    <p>{{ userEmail }}</p>
+
+    <div class="profile-actions">
+      <ion-button color="danger" expand="block" (click)="deleteAccount()">
+        Hapus Akun
+      </ion-button>
+
+      <ion-button color="light" expand="block" (click)="goToDashboard()">
+        ⬅ Kembali ke Dashboard
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

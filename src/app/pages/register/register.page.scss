@@ -1,0 +1,100 @@
+:host {
+  ion-content {
+    --background: none; /* jangan flex di sini */
+    padding: 0 !important;
+  }
+}
+
+/* Wrapper gradient dan posisi tengah */
+.auth-wrapper {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* Card */
+.auth-card {
+  background: #fff;
+  border-radius: 15px;
+  padding: 40px 30px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 400px;
+  color: #2d3748;
+  font-family: 'Inter', sans-serif;
+}
+
+.logo {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: #718096;
+  margin-bottom: 20px;
+}
+
+/* Password */
+.password-wrapper {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #888;
+}
+
+/* Inputs */
+ion-input {
+  margin-bottom: 15px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  --background: #fff;
+  color: black;
+}
+
+/* Buttons */
+ion-button.btn-primary {
+  --background: #4299e1;
+  font-weight: 600;
+  border-radius: 12px;
+}
+
+ion-button[color='light'] {
+  --border-color: #ccc;
+  --color: #2d3748;
+  border: 1px solid #ccc;
+  background: #fff;
+  margin-top: 10px;
+}
+
+/* Switch link */
+.switch-auth {
+  font-size: 0.9rem;
+  margin-top: 10px;
+  color: #2d3748;
+
+  a {
+    color: #4299e1;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
