@@ -32,9 +32,9 @@
             required
           ></ion-input>
           <ion-icon
-            name="eye"
-            class="toggle-password"
+            [name]="showPassword ? 'eye-off' : 'eye'"
             (click)="togglePassword()"
+            class="toggle-password"
           ></ion-icon>
         </div>
 

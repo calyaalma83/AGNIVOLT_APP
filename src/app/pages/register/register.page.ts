@@ -35,6 +35,12 @@ export class RegisterPage {
     this.showPassword = !this.showPassword;
   }
 
+  // ✅ Validasi password kuat
+  validatePassword(password: string): boolean {
+    const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]).{8,}$/;
+    return regex.test(password);
+  }
+
   async showToast(message: string, color: string = 'danger') {
     const toast = await this.toastCtrl.create({
       message,
@@ -53,6 +59,14 @@ export class RegisterPage {
       return;
     }
 
+    // ✅ Validasi password
+    if (!this.validatePassword(this.password)) {
+      this.showToast(
+        'Password harus minimal 8 karakter, mengandung huruf, angka, dan simbol.'
+      );
+      return;
+    }
+
     const loading = await this.loadingCtrl.create({
       message: 'Sedang mendaftarkan...',
       spinner: 'crescent',
@@ -60,7 +74,11 @@ export class RegisterPage {
     await loading.present();
 
     try {
-      const userCred = await createUserWithEmailAndPassword(auth, this.email, this.password);
+      const userCred = await createUserWithEmailAndPassword(
+        auth,
+        this.email,
+        this.password
+      );
       await updateProfile(userCred.user, { displayName: this.name });
 
       await loading.dismiss();

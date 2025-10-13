@@ -30,6 +30,10 @@
   font-family: 'Inter', sans-serif;
 }
 
+form {
+  text-align: left;
+}
+
 .logo {
   font-size: 2rem;
   margin-bottom: 10px;
@@ -51,9 +55,15 @@
   right: 12px;
   top: 50%;
   transform: translateY(-50%);
+  font-size: 1.4rem;
+  color: #4a5568; /* abu tua */
   cursor: pointer;
-  font-size: 1.2rem;
-  color: #888;
+  z-index: 10;
+  transition: color 0.2s ease;
+}
+
+.toggle-password:hover {
+  color: #4299e1; /* biru hover */
 }
 
 /* Inputs */
@@ -65,18 +75,22 @@ ion-input {
   border: 1px solid #ccc;
   --background: #fff;
   color: black;
+  text-align: left;
 }
 
 /* Buttons */
 ion-button.btn-primary {
-  --background: #4299e1;
+  --border-radius: 12px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
   font-weight: 600;
-  border-radius: 12px;
+  margin-top: 10px;
 }
 
 ion-button[color='light'] {
   --border-color: #ccc;
   --color: #2d3748;
+  --border-radius: 12px;
   border: 1px solid #ccc;
   background: #fff;
   margin-top: 10px;

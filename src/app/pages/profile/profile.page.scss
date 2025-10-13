@@ -1,5 +1,5 @@
 ion-content {
-  --background: #050170;
+  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   display: flex;
   justify-content: center;
   align-items: center; /* ⬅️ ini biar semua isi ke tengah vertikal */
@@ -7,6 +7,14 @@ ion-content {
   color: #fff;
   min-height: 100vh;
   font-family: 'Inter', sans-serif;
+}
+
+ion-button {
+  --border-radius: 12px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  font-weight: 550;
+  margin-top: 10px;
 }
 
 .profile-container {
