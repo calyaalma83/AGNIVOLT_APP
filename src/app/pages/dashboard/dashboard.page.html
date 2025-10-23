@@ -3,11 +3,44 @@
     <!-- Header -->
     <div class="header">
       <div class="header-top">
-        <img src="assets/logo.png" alt="Agnivolt Logo" class="logo">
-        <h1>
-          Sistem Monitoring Pembangkit Listrik Tenaga Mikrohidro Berbasis IoT
-          <span class="status-indicator"></span>
-        </h1>
+        <div class="header-left">
+          <img src="assets/logo.png" alt="Agnivolt Logo" class="logo">
+          <div class="header-title-wrapper">
+            <h1>Sistem Monitoring PLTMH Berbasis IoT</h1>
+            <div class="system-status">
+              <span class="status-indicator"></span>
+              <span class="status-text">Sistem Online</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <div class="user-info" (click)="toggleProfileMenu()">
+            <div class="user-details">
+              <span class="greeting">Halo,</span>
+              <span class="user-name">{{ userName }}</span>
+            </div>
+            <div class="user-avatar-header">{{ userInitial }}</div>
+            <ion-icon name="chevron-down-outline" class="dropdown-icon" [class.rotated]="showProfileMenu"></ion-icon>
+          </div>
+
+          <!-- Dropdown Menu -->
+          <div class="profile-dropdown" *ngIf="showProfileMenu">
+            <div class="dropdown-item" (click)="openProfile()">
+              <ion-icon name="person-outline"></ion-icon>
+              <span>Profil Saya</span>
+            </div>
+            <div class="dropdown-item" (click)="openSettings()">
+              <ion-icon name="settings-outline"></ion-icon>
+              <span>Pengaturan</span>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item logout" (click)="logout()">
+              <ion-icon name="log-out-outline"></ion-icon>
+              <span>Keluar</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -74,11 +107,9 @@
       </div>
     </div>
 
-    <!-- Avatar + FAB -->
-    <div class="user-avatar" id="miniAvatar" (click)="openProfile()">{{ userInitial }}</div>
-
-    <ion-fab vertical="bottom" horizontal="end">
-      <ion-fab-button color="primary" (click)="openAiAssistant()">
+    <!-- FAB AI Assistant -->
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button color="primary" (click)="openAiAssistant()" class="ai-fab">
         <ion-icon name="chatbubbles-outline"></ion-icon>
       </ion-fab-button>
     </ion-fab>
@@ -87,4 +118,68 @@
   <footer class="footer">
     <p>© 2025 Agnivolt • Sistem Monitoring PLTMH Berbasis IoT</p>
   </footer>
+
+  <!-- AI Assistant Overlay -->
+  <div *ngIf="showAiAssistant" class="ai-overlay">
+    <!-- Backdrop -->
+    <div class="ai-backdrop" (click)="closeAiAssistant()"></div>
+
+    <!-- Sidebar Panel -->
+    <div class="ai-sidebar">
+      <!-- Header Sidebar -->
+      <div class="sidebar-header">
+        <div class="sidebar-title">
+          <ion-icon name="chatbubbles" class="header-icon"></ion-icon>
+          <h2>AI Assistant</h2>
+        </div>
+        <ion-button fill="clear" class="close-btn" (click)="closeAiAssistant()">
+          <ion-icon name="close-outline"></ion-icon>
+        </ion-button>
+      </div>
+
+      <!-- Chat Messages Area -->
+      <div class="chat-messages" #chatMessages>
+        <div
+          *ngFor="let msg of aiMessages"
+          class="message-row"
+          [ngClass]="msg.sender"
+        >
+          <div class="message-avatar">{{ msg.avatar }}</div>
+          <div class="message-bubble" [innerHTML]="msg.text"></div>
+        </div>
+
+        <!-- Loading -->
+        <div *ngIf="isAiLoading" class="message-row ai">
+          <div class="message-avatar">🤖</div>
+          <div class="message-bubble">
+            <div class="typing-indicator">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Input Footer -->
+      <div class="chat-footer">
+        <div class="chat-input-wrapper">
+          <ion-input
+            [(ngModel)]="chatInput"
+            placeholder="Tanyakan tentang PLTMH..."
+            (keyup.enter)="sendAiMessage()"
+            class="chat-input"
+          ></ion-input>
+          <ion-button
+            (click)="sendAiMessage()"
+            fill="clear"
+            class="send-btn"
+            [disabled]="!chatInput.trim()"
+          >
+            <ion-icon name="send"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>

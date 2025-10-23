@@ -1,18 +1,21 @@
-<ion-header translucent>
-  <ion-toolbar color="primary">
-    <ion-title>🤖 AI Assistant - Agnivolt</ion-title>
-    <ion-buttons slot="end">
-      <!-- Tombol X untuk kembali ke dashboard -->
-      <ion-button (click)="closeChat()">
-        <ion-icon name="close-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<!-- Backdrop overlay untuk close sidebar saat klik luar -->
+<div class="sidebar-backdrop" (click)="closeChat()"></div>
 
-<ion-content fullscreen class="ai-chat">
+<!-- Sidebar Panel -->
+<div class="ai-sidebar">
+  <!-- Header Sidebar -->
+  <div class="sidebar-header">
+    <div class="sidebar-title">
+      <ion-icon name="chatbubbles" class="header-icon"></ion-icon>
+      <h2>AI Assistant</h2>
+    </div>
+    <ion-button fill="clear" class="close-btn" (click)="closeChat()">
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+  <!-- Chat Messages Area -->
   <div class="chat-messages">
-    <!-- Loop pesan -->
     <div
       *ngFor="let msg of messages"
       class="message-row"
@@ -25,20 +28,33 @@
     <!-- Loading -->
     <div *ngIf="isLoading" class="message-row ai">
       <div class="message-avatar">🤖</div>
-      <div class="message-bubble">Sedang berpikir...</div>
+      <div class="message-bubble">
+        <div class="typing-indicator">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
     </div>
   </div>
-</ion-content>
 
-<ion-footer class="chat-footer">
-  <div class="chat-input">
-    <ion-input
-      [(ngModel)]="chatInput"
-      placeholder="Tanyakan sesuatu..."
-      (keyup.enter)="sendMessage()"
-    ></ion-input>
-    <ion-button (click)="sendMessage()" shape="round" color="primary">
-      <ion-icon name="send"></ion-icon>
-    </ion-button>
+  <!-- Chat Input Footer -->
+  <div class="chat-footer">
+    <div class="chat-input-wrapper">
+      <ion-input
+        [(ngModel)]="chatInput"
+        placeholder="Tanyakan tentang PLTMH..."
+        (keyup.enter)="sendMessage()"
+        class="chat-input"
+      ></ion-input>
+      <ion-button
+        (click)="sendMessage()"
+        fill="clear"
+        class="send-btn"
+        [disabled]="!chatInput.trim()"
+      >
+        <ion-icon name="send"></ion-icon>
+      </ion-button>
+    </div>
   </div>
-</ion-footer>
+</div>

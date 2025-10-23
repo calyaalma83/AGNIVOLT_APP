@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ElementRef } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,7 +13,7 @@ import { NavController } from '@ionic/angular';
   templateUrl: './ai-assistant.page.html',
   styleUrls: ['./ai-assistant.page.scss'],
 })
-export class AiAssistantPage {
+export class AiAssistantPage implements AfterViewInit {
   messages: { sender: 'user' | 'ai'; text: string; avatar: string }[] = [
     {
       sender: 'ai',
@@ -29,7 +29,10 @@ export class AiAssistantPage {
   private GEMINI_API_KEY = 'AIzaSyBE_27Q5mMbOOzXDbnTpSarb69xMoBrppo';
   private GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${this.GEMINI_API_KEY}`;
 
-  constructor(private navCtrl: NavController) {
+  constructor(
+    private navCtrl: NavController,
+    private elementRef: ElementRef
+  ) {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.userInitial =
@@ -38,6 +41,10 @@ export class AiAssistantPage {
           'U';
       }
     });
+  }
+
+  ngAfterViewInit() {
+    this.scrollToBottom();
   }
 
   closeChat() {
@@ -51,10 +58,12 @@ export class AiAssistantPage {
     this.messages.push({ sender: 'user', text: msg, avatar: this.userInitial });
     this.chatInput = '';
     this.isLoading = true;
+    this.scrollToBottom();
 
     try {
       const response = await this.generateAIResponse(msg);
       this.messages.push({ sender: 'ai', text: response, avatar: '🤖' });
+      this.scrollToBottom();
     } catch (error) {
       this.messages.push({
         sender: 'ai',
@@ -62,9 +71,19 @@ export class AiAssistantPage {
         avatar: '🤖',
       });
       console.error('Error:', error);
+      this.scrollToBottom();
     } finally {
       this.isLoading = false;
     }
+  }
+
+  private scrollToBottom() {
+    setTimeout(() => {
+      const chatMessages = this.elementRef.nativeElement.querySelector('.chat-messages');
+      if (chatMessages) {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+    }, 100);
   }
 
   async generateAIResponse(message: string): Promise<string> {
