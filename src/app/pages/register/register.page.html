@@ -1,55 +1,80 @@
-<ion-content fullscreen>
-  <div class="auth-wrapper">
-    <div class="auth-card">
-      <div class="logo">⚡</div>
-      <h1>Register</h1>
-      <p class="subtitle">
-        Sistem Monitoring Pembangkit Listrik Tenaga Mikrohidro Berbasis IoT
-      </p>
+<ion-content fullscreen class="register-content">
+  <div class="register-container">
+    <div class="register-box">
+      <!-- Logo Section -->
+      <div class="logo-section">
+        <div class="logo-icon">⚡</div>
+        <h1 class="app-title">Daftar Akun</h1>
+        <p class="app-subtitle">Buat akun baru untuk mengakses Agnivolt</p>
+      </div>
 
-      <form (submit)="onRegister($event)">
-        <ion-input
-          [(ngModel)]="name"
-          name="name"
-          placeholder="Nama Lengkap"
-          required
-        ></ion-input>
-
-        <ion-input
-          [(ngModel)]="email"
-          name="email"
-          placeholder="Email"
-          type="email"
-          required
-        ></ion-input>
-
-        <div class="password-wrapper">
-          <ion-input
-            [(ngModel)]="password"
-            name="password"
-            placeholder="Password"
-            [type]="showPassword ? 'text' : 'password'"
-            required
-          ></ion-input>
-          <ion-icon
-            [name]="showPassword ? 'eye-off' : 'eye'"
-            (click)="togglePassword()"
-            class="toggle-password"
-          ></ion-icon>
+      <!-- Form Section -->
+      <div class="register-form">
+        <!-- Name Input -->
+        <div class="form-group">
+          <label class="input-label">Nama Lengkap</label>
+          <input
+            type="text"
+            class="form-input"
+            placeholder="Masukkan nama lengkap Anda"
+            #nameField
+            (input)="onNameChange($event)"
+          />
         </div>
 
-        <ion-button expand="block" type="submit" class="btn-primary">
+        <!-- Email Input -->
+        <div class="form-group">
+          <label class="input-label">Email</label>
+          <input
+            type="email"
+            class="form-input"
+            placeholder="Masukkan email Anda"
+            #emailField
+            (input)="onEmailChange($event)"
+          />
+        </div>
+
+        <!-- Password Input -->
+        <div class="form-group">
+          <label class="input-label">Password</label>
+          <div class="password-input-wrapper">
+            <input
+              type="password"
+              class="form-input"
+              placeholder="Masukkan password Anda"
+              #passwordField
+              (input)="onPasswordChange($event)"
+            />
+            <button
+              type="button"
+              class="toggle-password-btn"
+              (click)="togglePasswordVisibility()"
+            >
+              <ion-icon name="eye-outline"></ion-icon>
+            </button>
+          </div>
+        </div>
+
+        <!-- Register Button -->
+        <button type="button" class="btn-register" (click)="handleRegister()">
           Daftar
-        </ion-button>
-      </form>
+        </button>
+      </div>
 
-      <ion-button expand="block" color="light" (click)="registerWithGoogle()">
-        <ion-icon slot="start" name="logo-google"></ion-icon>
-        Daftar dengan Google
-      </ion-button>
+      <!-- Divider -->
+      <div class="divider">
+        <span>atau</span>
+      </div>
 
-      <p class="switch-auth">
-        Sudah punya akun? <a routerLink="/login">Login disini</a>
+      <!-- Google Register Button -->
+      <button type="button" class="btn-google" (click)="handleGoogleRegister()">
+        <ion-icon name="logo-google"></ion-icon>
+        <span>Daftar dengan Google</span>
+      </button>
+
+      <!-- Login Link -->
+      <p class="login-link">
+        Sudah punya akun? <a routerLink="/login">Masuk sekarang</a>
       </p>
     </div>
   </div>

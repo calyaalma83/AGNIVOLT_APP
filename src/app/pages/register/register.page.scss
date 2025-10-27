@@ -1,114 +1,278 @@
-:host {
-  ion-content {
-    --background: none; /* jangan flex di sini */
-    padding: 0 !important;
-  }
-}
-
-/* Wrapper gradient dan posisi tengah */
-.auth-wrapper {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 16px;
+/* === Reset & Base === */
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
-/* Card */
-.auth-card {
-  background: #fff;
-  border-radius: 15px;
-  padding: 40px 30px;
-  text-align: center;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+:host {
+  display: block;
+  height: 100%;
+}
+
+.register-content {
+  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+/* === Container === */
+.register-container {
+  min-height: 100vh;
   width: 100%;
-  max-width: 400px;
-  color: #2d3748;
-  font-family: 'Inter', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-form {
-  text-align: left;
+/* === Register Box === */
+.register-box {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  padding: 40px 35px;
+  width: 100%;
+  max-width: 440px;
+  animation: fadeInUp 0.5s ease;
 }
 
-.logo {
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === Logo Section === */
+.logo-section {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.logo-icon {
+  font-size: 3.5rem;
+  margin-bottom: 12px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.app-title {
   font-size: 2rem;
-  margin-bottom: 10px;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.subtitle {
-  font-size: 0.9rem;
+.app-subtitle {
+  font-size: 0.875rem;
   color: #718096;
+  line-height: 1.4;
+}
+
+/* === Form === */
+.register-form {
+  margin-bottom: 25px;
+}
+
+.form-group {
   margin-bottom: 20px;
 }
 
-/* Password */
-.password-wrapper {
+.input-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 8px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 0.95rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #2d3748;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  outline: none;
+
+  &:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+
+  &::placeholder {
+    color: #a0aec0;
+  }
+}
+
+/* === Password Input === */
+.password-input-wrapper {
   position: relative;
 }
 
-.toggle-password {
+.toggle-password-btn {
   position: absolute;
   right: 12px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 1.4rem;
-  color: #4a5568; /* abu tua */
+  background: none;
+  border: none;
+  padding: 8px;
   cursor: pointer;
-  z-index: 10;
+  color: #718096;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: color 0.2s ease;
+
+  &:hover {
+    color: #667eea;
+  }
+
+  ion-icon {
+    font-size: 20px;
+  }
 }
 
-.toggle-password:hover {
-  color: #4299e1; /* biru hover */
-}
-
-/* Inputs */
-ion-input {
-  margin-bottom: 15px;
-  --padding-start: 12px;
-  --padding-end: 12px;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-  --background: #fff;
-  color: black;
-  text-align: left;
-}
-
-/* Buttons */
-ion-button.btn-primary {
-  --border-radius: 12px;
-  --padding-top: 12px;
-  --padding-bottom: 12px;
+/* === Buttons === */
+.btn-register {
+  width: 100%;
+  padding: 14px;
+  font-size: 1rem;
   font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
   margin-top: 10px;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 }
 
-ion-button[color='light'] {
-  --border-color: #ccc;
-  --color: #2d3748;
-  --border-radius: 12px;
-  border: 1px solid #ccc;
-  background: #fff;
-  margin-top: 10px;
+/* === Divider === */
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 25px 0;
+  color: #a0aec0;
+  font-size: 0.875rem;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e2e8f0;
+  }
+
+  span {
+    padding: 0 15px;
+  }
 }
 
-/* Switch link */
-.switch-auth {
-  font-size: 0.9rem;
-  margin-top: 10px;
+/* === Google Button === */
+.btn-google {
+  width: 100%;
+  padding: 14px;
+  font-size: 0.95rem;
+  font-weight: 600;
   color: #2d3748;
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: #cbd5e0;
+    background: #f7fafc;
+  }
+
+  ion-icon {
+    font-size: 20px;
+    color: #EA4335;
+  }
+}
+
+/* === Login Link === */
+.login-link {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 0.9rem;
+  color: #4a5568;
 
   a {
-    color: #4299e1;
+    color: #667eea;
     font-weight: 600;
     text-decoration: none;
+    transition: color 0.2s ease;
 
     &:hover {
+      color: #764ba2;
       text-decoration: underline;
     }
+  }
+}
+
+/* === Responsive === */
+@media (max-width: 480px) {
+  .register-box {
+    padding: 30px 25px;
+  }
+
+  .logo-icon {
+    font-size: 3rem;
+  }
+
+  .app-title {
+    font-size: 1.75rem;
+  }
+
+  .app-subtitle {
+    font-size: 0.8rem;
   }
 }
