@@ -1,20 +1,14 @@
+// profile.page.scss
+
 ion-content {
   --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   display: flex;
   justify-content: center;
-  align-items: center; /* ⬅️ ini biar semua isi ke tengah vertikal */
+  align-items: center;
   flex-direction: column;
   color: #fff;
   min-height: 100vh;
   font-family: 'Inter', sans-serif;
-}
-
-ion-button {
-  --border-radius: 12px;
-  --padding-top: 12px;
-  --padding-bottom: 12px;
-  font-weight: 550;
-  margin-top: 10px;
 }
 
 .profile-container {
@@ -25,7 +19,7 @@ ion-button {
   justify-content: center;
   color: #fff;
   min-height: 100vh;
-  padding-top: 40px;
+  padding: 40px 20px;
 }
 
 .header {
@@ -34,7 +28,7 @@ ion-button {
   border-radius: 15px;
   text-align: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 
   h1 {
     font-size: 1.8rem;
@@ -43,42 +37,58 @@ ion-button {
 }
 
 .profile-card {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 20px;
-  padding: 30px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  padding: 50px 40px;
   text-align: center;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   width: 90%;
   max-width: 400px;
   margin: 0 auto;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
 }
 
 .avatar-large {
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  border: 4px solid white;
-  margin: 0 auto 15px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  margin: 0 auto 25px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 3rem;
   font-weight: 700;
   color: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   text-transform: uppercase;
+  position: relative;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 20px rgba(102, 126, 234, 0);
+  }
 }
 
 h2 {
-  margin-bottom: 5px;
-  font-size: 1.4rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 8px;
 }
 
-p {
-  color: rgba(255, 255, 255, 0.85);
-  margin-bottom: 20px;
+.email {
+  color: #718096;
+  font-size: 0.95rem;
+  margin-bottom: 35px;
 }
 
 .profile-actions {
@@ -86,4 +96,71 @@ p {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+// Button Primary (Kembali ke Dashboard)
+ion-button.btn-primary {
+  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --background-hover: linear-gradient(135deg, #5568d3 0%, #6a3f8f 100%);
+  --background-activated: linear-gradient(135deg, #5568d3 0%, #6a3f8f 100%);
+  --color: white;
+  --border-radius: 12px;
+  --padding-top: 14px;
+  --padding-bottom: 14px;
+  --box-shadow: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin: 0;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: scale(1.02);
+    --box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+  }
+}
+
+// Button Danger (Hapus Akun)
+ion-button.btn-danger {
+  --background: white;
+  --background-hover: #e53e3e;
+  --background-activated: #e53e3e;
+  --color: #e53e3e;
+  --color-hover: white;
+  --color-activated: white;
+  --border-radius: 12px;
+  --border-width: 2px;
+  --border-style: solid;
+  --border-color: #e53e3e;
+  --padding-top: 14px;
+  --padding-bottom: 14px;
+  --box-shadow: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin: 0;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+// Responsive
+@media (max-width: 480px) {
+  .profile-card {
+    padding: 40px 30px;
+  }
+
+  .avatar-large {
+    width: 100px;
+    height: 100px;
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+  }
 }

@@ -1,18 +1,7 @@
-// Import Firebase SDK
+// src/app/firebase-init.ts
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { environment } from '../environments/environment';
 
-// Config kamu (ganti dengan Firebase project-mu)
-const firebaseConfig = {
-  apiKey: "AIzaSyCHvLP731nG0J4emMOrZRhI3wOFfFF7gck",
-  authDomain: "agnivolt-c61a6.firebaseapp.com",
-  databaseURL: "https://agnivolt-c61a6-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "agnivolt-c61a6",
-  storageBucket: "agnivolt-c61a6.firebasestorage.app",
-  messagingSenderId: "453833599474",
-  appId: "1:453833599474:web:bc3e76ca1deeea0969a36b"
-};
-
-// Inisialisasi
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(environment.firebaseConfig);
 export const auth = getAuth(app);

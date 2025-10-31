@@ -23,7 +23,7 @@ ion-content.dashboard-container {
   font-family: 'Inter', sans-serif;
   color: var(--text);
   min-height: 100vh;
-  padding-bottom: 100px; /* sebelumnya 60px, tambahkan ruang ekstra */
+  --padding-bottom: 0; /* Hilangkan padding bawah */
   position: relative;
 }
 
@@ -32,6 +32,7 @@ ion-content.dashboard-container {
   max-width: 1400px;
   margin: 0 auto;
   padding: 15px;
+  padding-bottom: 0; /* Hilangkan padding bawah container */
   position: relative;
   z-index: 1; /* Base layer */
 }
@@ -311,19 +312,19 @@ ion-content.dashboard-container {
 
   display: flex;
   flex-direction: column;
-  justify-content: center; /* ⬅️ tengahin isi vertikal */
-  align-items: center;     /* ⬅️ tengahin isi horizontal */
+  justify-content: center;
+  align-items: center;
   position: relative;
 
   width: 100%;
-  min-height: 300px;       /* ⬅️ tinggi minimum agar chart proporsional */
-  max-height: 450px;       /* ⬅️ batas biar gak kepanjangan di desktop */
+  min-height: 300px;
+  max-height: 450px;
   overflow: hidden;
 }
 
 .chart-container canvas {
   width: 100% !important;
-  height: 100% !important; /* 🚀 biar proporsional */
+  height: 100% !important;
   max-height: 320px;
 }
 
@@ -392,7 +393,7 @@ ion-content.dashboard-container {
 ion-fab {
   position: fixed !important;
   right: 24px;
-  bottom: 24px;
+  bottom: 24px; /* Naikkan dari 24px agar tidak tertutup footer */
   z-index: 1100;
 }
 
@@ -418,24 +419,25 @@ ion-fab {
 
 /* === Footer === */
 .footer {
-  position: relative;      /* bukan fixed lagi */
+  position: relative;
   bottom: 0;
   left: 0;
-  width: 100%;
+  width: 100vw; /* Full viewport width */
+  margin-left: calc(-50vw + 50%); /* Trick untuk membuat full width dari container yang terbatas */
   font-family: 'Inter', sans-serif;    
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   text-align: center;
-  padding: 9px 5px 10px;
+  padding: 12px 20px;
   color: rgba(255, 255, 255, 0.85);
   font-size: 0.9rem;
-  margin-top: 30px;        /* beri jarak dari konten */
-  border-radius: 15px 15px 0 0;
-}
-
-ion-content {
-  --padding-bottom: 50px;
+  margin-top: 30px;
+  border-radius: 20px 20px 0 0; /* Hilangkan border radius */
+  
+  p {
+    margin: 0;
+  }
 }
 
 /* === AI Assistant Overlay === */
@@ -781,7 +783,7 @@ ion-content {
   }
 
   .user-details {
-    display: none; /* Hide greeting text di mobile untuk menghemat space */
+    display: none;
   }
 
   .user-avatar-header {
@@ -834,8 +836,8 @@ ion-content {
 
   ion-fab {
     right: 16px;
-    bottom: 20px;
-    z-index: 1100 !important; /* Pastikan selalu di atas */
+    bottom: 24px; /* Naikkan di mobile juga */
+    z-index: 1100 !important;
   }
 
   .ai-fab {

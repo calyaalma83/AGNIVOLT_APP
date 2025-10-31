@@ -1,3 +1,4 @@
+<!-- profile.page.html -->
 <ion-content class="ion-padding profile-container">
   <div class="header">
     <h1>👤 Profil Pengguna</h1>
@@ -12,15 +13,15 @@
     </div>
 
     <h2>{{ userName }}</h2>
-    <p>{{ userEmail }}</p>
+    <p class="email">{{ userEmail }}</p>
 
     <div class="profile-actions">
-      <ion-button color="danger" expand="block" (click)="deleteAccount()">
-        Hapus Akun
+      <ion-button class="btn-primary" expand="block" (click)="goToDashboard()">
+        ⬅ KEMBALI KE DASHBOARD
       </ion-button>
 
-      <ion-button color="light" expand="block" (click)="goToDashboard()">
-        ⬅ Kembali ke Dashboard
+      <ion-button class="btn-danger" expand="block" fill="outline" (click)="deleteAccount()">
+        HAPUS AKUN
       </ion-button>
     </div>
   </div>

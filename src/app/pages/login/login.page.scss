@@ -11,7 +11,7 @@
 }
 
 .login-content {
-  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --background: linear-gradient(135deg, #4A90E2 0%, #3B3B98 100%);
   --padding-top: 0;
   --padding-bottom: 0;
   --padding-start: 0;
@@ -34,9 +34,9 @@
   background: #ffffff;
   border-radius: 20px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  padding: 40px 35px;
+  padding: 30px 35px; /* Kurangi padding vertical lebih banyak */
   width: 100%;
-  max-width: 440px;
+  max-width: 550px; /* Perbesar lebar lebih banyak */
   animation: fadeInUp 0.5s ease;
 }
 
@@ -54,12 +54,12 @@
 /* === Logo Section === */
 .logo-section {
   text-align: center;
-  margin-bottom: 35px;
+  margin-bottom: 24px; /* Kurangi lebih banyak */
 }
 
 .logo-icon {
-  font-size: 3.5rem;
-  margin-bottom: 12px;
+  font-size: 2.75rem; /* Kurangi lebih banyak */
+  margin-bottom: 8px; /* Kurangi lebih banyak */
   animation: pulse 2s infinite;
 }
 
@@ -73,10 +73,10 @@
 }
 
 .app-title {
-  font-size: 2rem;
+  font-size: 1.75rem; /* Kurangi lebih banyak */
   font-weight: 700;
   color: #1a202c;
-  margin-bottom: 8px;
+  margin-bottom: 5px; /* Kurangi lebih banyak */
   background: linear-gradient(135deg, #667eea, #764ba2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -91,11 +91,11 @@
 
 /* === Form === */
 .login-form {
-  margin-bottom: 25px;
+  margin-bottom: 16px; /* Kurangi lebih banyak */
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 14px; /* Kurangi lebih banyak */
 }
 
 .input-label {
@@ -103,12 +103,12 @@
   font-size: 0.875rem;
   font-weight: 600;
   color: #2d3748;
-  margin-bottom: 8px;
+  margin-bottom: 6px; /* Kurangi dari 8px */
 }
 
 .form-input {
   width: 100%;
-  padding: 14px 16px;
+  padding: 12px 16px; /* Kurangi dari 14px */
   font-size: 0.95rem;
   border: 2px solid #e2e8f0;
   border-radius: 12px;
@@ -160,7 +160,7 @@
 /* === Buttons === */
 .btn-login {
   width: 100%;
-  padding: 14px;
+  padding: 12px; /* Kurangi dari 14px */
   font-size: 1rem;
   font-weight: 600;
   color: #ffffff;
@@ -171,7 +171,7 @@
   font-family: inherit;
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-  margin-top: 10px;
+  margin-top: 8px; /* Kurangi dari 10px */
 
   &:hover:not(:disabled) {
     transform: translateY(-2px);
@@ -192,7 +192,7 @@
 .divider {
   display: flex;
   align-items: center;
-  margin: 25px 0;
+  margin: 16px 0; /* Kurangi lebih banyak */
   color: #a0aec0;
   font-size: 0.875rem;
 
@@ -212,7 +212,7 @@
 /* === Google Button === */
 .btn-google {
   width: 100%;
-  padding: 14px;
+  padding: 12px; /* Kurangi dari 14px */
   font-size: 0.95rem;
   font-weight: 600;
   color: #2d3748;
@@ -241,7 +241,7 @@
 /* === Register Link === */
 .register-link {
   text-align: center;
-  margin-top: 25px;
+  margin-top: 16px; /* Kurangi lebih banyak */
   font-size: 0.9rem;
   color: #4a5568;
 
@@ -258,18 +258,41 @@
   }
 }
 
+/* === Responsive Desktop === */
+@media (min-width: 1024px) {
+  .login-container {
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0; /* Kurangi dari 60px */
+  }
+
+  .login-box {
+    width: 100%;
+    max-width: 900px; /* Perbesar lebih banyak untuk desktop */
+    padding: 40px 55px; /* Kurangi vertical, perbesar horizontal */
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  .logo-section {
+    margin-bottom: 28px; /* Kurangi lebih banyak */
+  }
+}
+
 /* === Responsive === */
 @media (max-width: 480px) {
   .login-box {
-    padding: 30px 25px;
+    padding: 28px 25px; /* Kurangi dari 30px */
   }
 
   .logo-icon {
-    font-size: 3rem;
+    font-size: 2.75rem; /* Kurangi dari 3rem */
   }
 
   .app-title {
-    font-size: 1.75rem;
+    font-size: 1.65rem; /* Kurangi dari 1.75rem */
   }
 
   .app-subtitle {
