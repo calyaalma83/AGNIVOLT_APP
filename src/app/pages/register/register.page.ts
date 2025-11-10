@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { IonicModule, ToastController, LoadingController } from '@ionic/angular';
@@ -8,7 +8,9 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   GoogleAuthProvider,
-  signInWithPopup,
+  signInWithRedirect, 
+  getRedirectResult, 
+  User, // Mengimpor tipe User
 } from 'firebase/auth';
 
 @Component({
@@ -18,7 +20,7 @@ import {
   styleUrls: ['./register.page.scss'],
   imports: [IonicModule, CommonModule, RouterModule],
 })
-export class RegisterPage {
+export class RegisterPage implements OnInit { // Menggunakan OnInit
   @ViewChild('nameField', { static: false }) nameField!: ElementRef;
   @ViewChild('emailField', { static: false }) emailField!: ElementRef;
   @ViewChild('passwordField', { static: false }) passwordField!: ElementRef;
@@ -26,32 +28,34 @@ export class RegisterPage {
   name = '';
   email = '';
   password = '';
+  
+  // FLAG KRITIS: Mencegah pemrosesan ganda saat redirect
+  private isRedirectProcessing = false; 
 
   constructor(
     private router: Router,
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController
-  ) {
-    console.log('RegisterPage initialized');
+  ) {}
+
+  // Panggil fungsi penanganan redirect di hook OnInit
+  ngOnInit() {
+    this.handleGoogleRedirectResult();
   }
 
   onNameChange(event: any) {
     this.name = event.target.value;
-    console.log('Name changed:', this.name);
   }
 
   onEmailChange(event: any) {
     this.email = event.target.value;
-    console.log('Email changed:', this.email);
   }
 
   onPasswordChange(event: any) {
     this.password = event.target.value;
-    console.log('Password changed:', this.password);
   }
 
   togglePasswordVisibility() {
-    console.log('Toggle password clicked');
     const passwordInput = this.passwordField?.nativeElement;
     if (passwordInput) {
       passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
@@ -62,9 +66,11 @@ export class RegisterPage {
     }
   }
 
-  // ✅ Validasi password kuat
+  /**
+   * Menggunakan standar minimum Firebase (6 karakter, harus ada huruf dan angka).
+   */
   validatePassword(password: string): boolean {
-    const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]).{8,}$/;
+    const regex = /^(?=.*[A-Za-z])(?=.*\d).{6,}$/; 
     return regex.test(password);
   }
 
@@ -79,22 +85,16 @@ export class RegisterPage {
   }
 
   async handleRegister() {
-    console.log('Register button clicked');
-    console.log('Name:', this.name);
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
+    console.log('Register button clicked (Email/Password)');
 
     if (!this.name || !this.email || !this.password) {
-      console.log('Validation failed: empty fields');
       this.showToast('Semua kolom harus diisi!');
       return;
     }
 
-    // ✅ Validasi password
     if (!this.validatePassword(this.password)) {
-      console.log('Validation failed: weak password');
       this.showToast(
-        'Password harus minimal 8 karakter, mengandung huruf, angka, dan simbol.'
+        'Password harus minimal 6 karakter, mengandung huruf dan angka.'
       );
       return;
     }
@@ -106,16 +106,15 @@ export class RegisterPage {
     await loading.present();
 
     try {
-      console.log('Attempting Firebase registration...');
       const userCred = await createUserWithEmailAndPassword(
         auth,
         this.email,
         this.password
       );
+      // Update profile dengan nama yang dimasukkan di form
       await updateProfile(userCred.user, { displayName: this.name });
 
       await loading.dismiss();
-      console.log('Registration successful');
       this.showToast('Registrasi berhasil!', 'success');
       this.router.navigateByUrl('/dashboard', { replaceUrl: true });
     } catch (error: any) {
@@ -125,29 +124,75 @@ export class RegisterPage {
     }
   }
 
+  /**
+   * Menggunakan signInWithRedirect untuk aplikasi Ionic/Angular yang di-deploy.
+   */
   async handleGoogleRegister() {
-    console.log('Google register button clicked');
+    console.log('Google register button clicked - initiating redirect');
     const provider = new GoogleAuthProvider();
 
-    const loading = await this.loadingCtrl.create({
-      message: 'Login dengan Google...',
-      spinner: 'crescent',
-    });
-    await loading.present();
-
     try {
-      console.log('Attempting Google registration...');
-      await signInWithPopup(auth, provider);
-      await loading.dismiss();
-      console.log('Google registration successful');
-      this.showToast('Login Google berhasil!', 'success');
-      this.router.navigateByUrl('/dashboard', { replaceUrl: true });
+      await signInWithRedirect(auth, provider); 
     } catch (error: any) {
-      await loading.dismiss();
-      console.error('Google registration error:', error);
+      console.error('Google registration redirect error:', error);
       this.showToast(this.getFirebaseErrorMessage(error.code));
     }
   }
+
+  /**
+   * Fungsi untuk menangani hasil setelah redirect Google selesai.
+   */
+  async handleGoogleRedirectResult() {
+    // Jika sedang diproses, keluar segera
+    if (this.isRedirectProcessing) {
+        return;
+    }
+    this.isRedirectProcessing = true; // Set flag: Sedang diproses
+
+    let loading: HTMLIonLoadingElement | null = null;
+
+    try {
+      // 1. Coba mendapatkan hasil redirect.
+      const result = await getRedirectResult(auth);
+      
+      if (result) {
+        // 2. Jika ada hasil (berarti kembali dari Google), tampilkan loading.
+        loading = await this.loadingCtrl.create({
+            message: 'Memproses login Google...',
+            spinner: 'crescent',
+        });
+        await loading.present();
+
+        // 3. Sukses, navigasi.
+        console.log('Google Redirect successful:', result.user.uid);
+        this.showToast('Login Google berhasil!', 'success');
+        this.router.navigateByUrl('/dashboard', { replaceUrl: true });
+      }
+      // Jika result null, tidak ada redirect, lanjut normal.
+      
+    } catch (error: any) {
+      // 4. Tangani error otentikasi.
+      console.error('Google Redirect error:', error);
+      
+      // Tampilkan loading singkat untuk memastikan pesan error terlihat
+      loading = await this.loadingCtrl.create({
+            message: 'Terjadi Kesalahan Otentikasi...',
+            spinner: 'crescent',
+            duration: 1500 
+        });
+      await loading.present(); // Tampilkan
+      
+      this.showToast(this.getFirebaseErrorMessage(error.code));
+      
+    } finally {
+      // 5. Pastikan loading didismiss dan flag direset
+      if (loading) {
+          await loading.dismiss();
+      }
+      this.isRedirectProcessing = false; // Reset flag: Selesai diproses
+    }
+  }
+
 
   private getFirebaseErrorMessage(code: string): string {
     switch (code) {
@@ -156,9 +201,10 @@ export class RegisterPage {
       case 'auth/invalid-email':
         return 'Format email tidak valid.';
       case 'auth/weak-password':
-        return 'Password terlalu lemah.';
+        return 'Password terlalu lemah (minimal 6 karakter).';
       case 'auth/popup-closed-by-user':
-        return 'Login Google dibatalkan.';
+      case 'auth/cancelled-popup-request':
+        return 'Login dibatalkan atau Pop-up diblokir.';
       default:
         return 'Terjadi kesalahan. Coba lagi.';
     }

@@ -8,6 +8,7 @@
 :host {
   display: block;
   height: 100%;
+  background: linear-gradient(135deg, #4A90E2 0%, #3B3B98 100%);
 }
 
 .register-content {
@@ -34,185 +35,144 @@
   background: #ffffff;
   border-radius: 20px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  padding: 30px 35px;
+  padding: 30px 30px;
+  max-width: 400px;
   width: 100%;
-  max-width: 550px;
-  animation: fadeInUp 0.5s ease;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  position: relative;
+  
+  /* PERBAIKAN KRITIS: Memastikan box ini berada di lapisan paling atas */
+  z-index: 10; 
 }
 
 /* === Logo Section === */
 .logo-section {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 30px;
 }
 
 .logo-icon {
-  font-size: 2.75rem;
-  margin-bottom: 8px;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
+  font-size: 40px;
+  margin-bottom: 5px;
+  color: #4A90E2;
 }
 
 .app-title {
-  font-size: 1.75rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  color: #1a202c;
-  margin-bottom: 5px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #333;
+  margin: 0;
 }
 
 .app-subtitle {
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   color: #718096;
-  line-height: 1.4;
+  margin-top: 4px;
 }
 
-/* === Form === */
+/* === Form Styles === */
 .register-form {
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .form-group {
-  margin-bottom: 14px;
+  margin-bottom: 15px;
 }
 
 .input-label {
   display: block;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  color: #2d3748;
+  color: #4a5568;
   margin-bottom: 6px;
 }
 
 .form-input {
   width: 100%;
-  padding: 12px 16px;
-  font-size: 0.95rem;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  background: #ffffff;
-  color: #2d3748;
+  padding: 10px 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
   font-family: inherit;
-  transition: all 0.3s ease;
-  outline: none;
-
-  &:focus {
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-  }
-
-  &::placeholder {
-    color: #a0aec0;
-  }
 }
 
-/* === Password Input === */
+.form-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+/* === Password Wrapper === */
 .password-input-wrapper {
   position: relative;
 }
 
 .toggle-password-btn {
   position: absolute;
-  right: 12px;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
   background: none;
   border: none;
-  padding: 8px;
   cursor: pointer;
+  padding: 5px;
   color: #718096;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color 0.2s ease;
-
-  &:hover {
-    color: #667eea;
-  }
-
-  ion-icon {
-    font-size: 20px;
-  }
+  font-size: 1.2rem;
+  line-height: 1;
 }
 
-/* === Buttons === */
+/* === Register Button (Email/Password) === */
 .btn-register {
   width: 100%;
-  padding: 12px;
+  padding: 12px 15px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #ffffff;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: #667eea;
   border: none;
   border-radius: 12px;
   cursor: pointer;
+  transition: background 0.3s ease, transform 0.1s ease;
+  margin-top: 10px; /* Tambahkan sedikit margin atas untuk jarak */
   font-family: inherit;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-  margin-top: 8px;
+}
 
-  &:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
-  }
+.btn-register:hover {
+  background: #764ba2;
+}
 
-  &:active:not(:disabled) {
-    transform: translateY(0);
-  }
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
+.btn-register:active {
+  transform: scale(0.99);
 }
 
 /* === Divider === */
 .divider {
   display: flex;
   align-items: center;
-  margin: 16px 0;
+  text-align: center;
+  margin: 20px 0;
   color: #a0aec0;
-  font-size: 0.875rem;
+}
 
-  &::before,
-  &::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: #e2e8f0;
-  }
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e2e8f0;
+}
 
-  span {
-    padding: 0 15px;
-  }
+.divider:not(:empty)::before {
+  margin-right: 10px;
+}
+
+.divider:not(:empty)::after {
+  margin-left: 10px;
 }
 
 /* === Google Button === */
 .btn-google {
   width: 100%;
-  padding: 12px;
+  padding: 12px 15px;
   font-size: 0.95rem;
   font-weight: 600;
   color: #2d3748;
@@ -259,43 +219,14 @@
 }
 
 /* === Responsive Desktop === */
-@media (min-width: 1024px) {
-  .register-container {
-    justify-content: center;
-    align-items: center;
-    padding: 40px 0;
-  }
-
+@media (min-width: 768px) {
   .register-box {
-    width: 100%;
-    max-width: 900px;
-    padding: 40px 55px;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    padding: 40px;
   }
-
-  .logo-section {
-    margin-bottom: 28px;
-  }
-}
-
-/* === Responsive === */
-@media (max-width: 480px) {
-  .register-box {
-    padding: 28px 25px;
-  }
-
-  .logo-icon {
-    font-size: 2.75rem;
-  }
-
-  .app-title {
-    font-size: 1.65rem;
-  }
-
-  .app-subtitle {
-    font-size: 0.8rem;
+  
+  /* Hapus atau kecilkan padding agar tidak terlalu menonjol di desktop */
+  .register-content {
+     --padding-top: 40px;
+     --padding-bottom: 40px;
   }
 }

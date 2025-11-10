@@ -9,7 +9,8 @@
       </div>
 
       <!-- Form Section -->
-      <div class="register-form">
+      <!-- PERBAIKAN: Menggunakan form tag yang benar -->
+      <form class="register-form" (ngSubmit)="handleRegister()">
         <!-- Name Input -->
         <div class="form-group">
           <label class="input-label">Nama Lengkap</label>
@@ -56,10 +57,12 @@
         </div>
 
         <!-- Register Button -->
-        <button type="button" class="btn-register" (click)="handleRegister()">
+        <!-- KRITIS: Mengganti type="button" menjadi type="submit" untuk form yang valid -->
+        <!-- Gunakan class btn-register yang sudah ada di SCSS -->
+        <button type="submit" class="btn-register">
           Daftar
         </button>
-      </div>
+      </form>
 
       <!-- Divider -->
       <div class="divider">
@@ -67,6 +70,7 @@
       </div>
 
       <!-- Google Register Button -->
+      <!-- Pastikan type="button" agar tidak men-submit form utama -->
       <button type="button" class="btn-google" (click)="handleGoogleRegister()">
         <ion-icon name="logo-google"></ion-icon>
         <span>Daftar dengan Google</span>
